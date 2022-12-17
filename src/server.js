@@ -2,9 +2,10 @@ const express = require("express");
 const server = express();
 const cors = require("cors");
 const path = require("path");
-const helment = require("helment");
+const helment = require("helmet");
 const morgan = require("morgan");
 const mongooseConnection = require("./connection/mongo.connection");
+const userRouter = require("./routes/user.routes");
 require("dotenv").config();
 const PORT = process.env.PORT;
 
@@ -17,10 +18,11 @@ server.use(
   cors({
     origin: "http://localhost:7000/api",
     methods: "CREATE, UPDATE, READ, DELETED",
-    
   })
 );
 server.use("/assets", express.static(path.join(__dirname, "public/assets")));
+/**/
+server.use("/api/users", userRouter);
 
 /*Mongo configuration*/
 server.mongooseConnection = mongooseConnection;
