@@ -11,6 +11,7 @@ class MulterController {
       },
     });
     const upload = multer({ storage });
+    return upload
   };
 }
 
