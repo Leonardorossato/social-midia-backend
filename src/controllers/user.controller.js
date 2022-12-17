@@ -59,6 +59,30 @@ class UserController {
       return res.status(500).json("Erro to get all Friends");
     }
   };
+
+  static addRemoveFriend = async (req, res) => {
+    try {
+      const { id, friendId } = req.params;
+      const user = await User.findById(id);
+      if (!user) {
+        return res.status(404).json("User with this id not found");
+      }
+      const friend = await User.findById(friendId);
+
+      if (user.friends.includes(friendId)) {
+        user.friends = user.friends.filter((id) => id !== friendId);
+        friend.friends = friend.friends.filter((id) => id !== id);
+      } else {
+        user.friends.push(friendId);
+        friend.friends.push(friendId);
+      }
+
+      await user.save();
+      await friend.save();
+    } catch (error) {
+      return res.status(500).json("Erro to add friend");
+    }
+  };
 }
 
 module.exports = UserController;
