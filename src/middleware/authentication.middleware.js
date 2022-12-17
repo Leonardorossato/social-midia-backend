@@ -1,16 +1,19 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const privateKey = process.env.PRIVATE_KEY;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 const verifyToken = (req, res, next) => {
-  const token = req.header("Bearer");
+  let token = req.header("Authorization");
   if (!token) {
     return res
       .status(400)
       .json({ message: "Access Denied. No token provided." });
   }
 
-  jwt.verify(token, privateKey, (err, validateToken) => {
+  if (token.startsWith("Bearer "))
+    token = token.slice(7, token.length).trimLeft();
+
+  jwt.verify(token, PRIVATE_KEY, (err, validateToken) => {
     if (err) {
       return res.status(400).json({ message: "Invalid token" });
     } else {
@@ -19,7 +22,5 @@ const verifyToken = (req, res, next) => {
     next();
   });
 };
-
-
 
 module.exports = { verifyToken };
