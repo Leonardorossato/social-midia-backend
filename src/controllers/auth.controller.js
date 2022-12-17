@@ -21,6 +21,7 @@ class AuthController {
       const token = jwt.sign({ id: user._id }, process.env.PRIVATE_KEY, {
         expiresIn: "1d",
       });
+      delete user.password;
       return res.status(201).json({ access_token: token });
     } catch (error) {
       return res.status(404).json({ message: "Invalid login credentials." });
