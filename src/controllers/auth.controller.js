@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const gerenateAuthToken = require("../middleware/generate.token.middleware");
 const User = require("../models/users.model");
 
 class AuthController {
@@ -17,6 +18,8 @@ class AuthController {
       if (!validPassword) {
         return res.status(400).json({ message: "Invalid  password." });
       }
+      const token = gerenateAuthToken(user);
+      return res.status(201).json({ access_token: token });
     } catch (error) {
       return res.status(404).json({ message: "Invalid login credentials." });
     }
