@@ -1,7 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/users.model");
-
+require('dotenv').config()
+const PRIVATE_KEY = process.env.PRIVATE_KEY
 class AuthController {
   static login = async (req, res) => {
     try {
@@ -18,7 +19,7 @@ class AuthController {
       if (!validPassword) {
         return res.status(400).json({ message: "Invalid  password." });
       }
-      const token = jwt.sign({ id: user._id }, process.env.PRIVATE_KEY, {
+      const token = jwt.sign({ id: user._id }, PRIVATE_KEY, {
         expiresIn: "1d",
       });
       delete user.password;
