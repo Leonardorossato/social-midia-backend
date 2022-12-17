@@ -79,6 +79,22 @@ class UserController {
 
       await user.save();
       await friend.save();
+      const friends = await Promise.all(
+        user.friends.map((id) => User.findById(id))
+      );
+      const formatted = friends.map(
+        ({ firstName, lastName, email, password, picturePath }) => {
+          return {
+            _id,
+            firstName,
+            lastName,
+            email,
+            password,
+            picturePath,
+          };
+        }
+      );
+      return res.status(200).json(formatted);
     } catch (error) {
       return res.status(500).json("Erro to add friend");
     }
