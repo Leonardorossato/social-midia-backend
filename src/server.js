@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const mongooseConnection = require("./connection/mongo.connection");
 const userRouter = require("./routes/user.routes");
 const authRouter = require("./routes/auth.routes");
+const postRouter = require("./routes/post.routes");
 require("dotenv").config();
 const PORT = process.env.PORT;
 
@@ -25,6 +26,7 @@ server.use("/assets", express.static(path.join(__dirname, "public/assets")));
 /*Server Routes*/
 server.use("/api/users", userRouter);
 server.use("/api/auth", authRouter);
+server.use("/api/posts", postRouter);
 
 /*Mongo configuration*/
 server.mongooseConnection = mongooseConnection;
