@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/all", verifyToken, UserController.all);
 router.get("/:id", UserController.findOneById);
-router.get("/friends/:id", UserController.getUserFriends);
+router.get("/:id/friends", UserController.getUserFriends);
 router.put("/:id/friendId", UserController.addRemoveFriend);
 router.delete("/:id", UserController.deleted);
 
