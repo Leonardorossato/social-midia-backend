@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const postsSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Types.ObjectId, ref: "users", required: true },
-    name: { type: String, required: true },
+    firtsName: { type: String, required: true },
+    lastName: { type: String, required: true },
     location: { type: String, required: false },
     description: { String, required: false },
     picturePath: { type: String, required: false },
