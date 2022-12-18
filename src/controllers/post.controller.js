@@ -47,6 +47,7 @@ class PostController {
       const { id } = req.params;
       const { userId } = req.body;
       const post = await Posts.findById(id);
+      if(!post) return res.status(403).json('Post id not found')
       const isLiked = post.likes.get(userId);
 
       if (isLiked) {
