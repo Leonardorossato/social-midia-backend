@@ -19,7 +19,7 @@ class AuthController {
       if (!validPassword) {
         return res.status(400).json({ message: "Invalid  password." });
       }
-      const token = jwt.sign({ id: user._id }, PRIVATE_KEY, {
+      const token = jwt.sign({ _id: user._id }, PRIVATE_KEY, {
         expiresIn: "1d",
       });
       delete user.password;
