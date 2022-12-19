@@ -23,6 +23,7 @@ server.use(
   })
 );
 server.use("/assets", express.static(path.join(__dirname, "public/assets")));
+
 /*Server Routes*/
 server.use("/api/users", userRouter);
 server.use("/api/auth", authRouter);
