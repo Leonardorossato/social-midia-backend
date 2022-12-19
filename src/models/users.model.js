@@ -11,9 +11,9 @@ const usersSchema = new mongoose.Schema(
     location: { type: String, required: false },
     occupation: { type: String, required: false },
     viewProfile: { type: Number, required: false },
-    impressions: { type: Number, required: false }
+    impressions: { type: Number, required: false },
   },
-  { timestamps: true }
+  { timestamps: new Date("DD/MM/YY hh:mm:ss") }
 );
 
 const User = mongoose.model("Users", usersSchema);

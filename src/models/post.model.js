@@ -13,7 +13,7 @@ const postsSchema = new mongoose.Schema(
     likes: { type: Map, of: Boolean, required: false },
     comment: { type: Array, default: [] },
   },
-  { timestamps: new Date() }
+  { timestamps: new Date('DD/MM/YY hh:mm:ss') }
 );
 
 const Posts = mongoose.model("Posts", postsSchema);
