@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId
 
 const postsSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Types.ObjectId, ref: "users", required: true },
+    userId: { type: ObjectId, ref: "users", required: true },
     firtsName: { type: String, required: true },
     lastName: { type: String, required: true },
     location: { type: String, required: false },
