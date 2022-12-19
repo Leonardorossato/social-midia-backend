@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { validateUser } = require("../middleware/validation.middleware");
 const User = require("../models/users.model");
 require('dotenv').config()
 const PRIVATE_KEY = process.env.PRIVATE_KEY
@@ -43,6 +44,8 @@ class AuthController {
       impressions: Math.floor(Math.random() * 1000),
     });
     try {
+      const {error} = validateUser(req.body)
+      if (error) res.status(400).json({message: error.details[0].message})
       const user = await User.findOne({ email: req.body.email });
       if (user) {
         return res.status(404).json("Email already in use");
