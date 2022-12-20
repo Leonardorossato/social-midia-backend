@@ -43,7 +43,7 @@ class PostController {
 
   static likePosts = async (req, res) => {
     try {
-      const {id} = req.params;
+      const { id } = req.params;
       const { userId } = req.body;
       const post = await Posts.findById(id);
       if (!post) return res.status(403).json("Post id not found");
@@ -60,6 +60,21 @@ class PostController {
         { new: true }
       );
       return res.status(200).json(updatePost);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  static deleted = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { userId } = req.params;
+      const user = await User.findById(userId);
+      if (!user) return res.status(403).json("User id not found");
+      const post = await Posts.findById(id);
+      if (!post) return res.status(403).json("Post id not found");
+      await Posts.findByIdAndRemove(post);
+      return res.status(200).json({ message: "Post deleted succesfully." });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
