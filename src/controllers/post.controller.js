@@ -16,8 +16,7 @@ class PostController {
       const user = await User.findById(userId);
       const newPost = new Posts({
         userId,
-        firtsName: user.firstName,
-        lastName: user.lastName,
+        name: user.name,
         location: user.location,
         description,
         picturePath,
@@ -44,10 +43,10 @@ class PostController {
 
   static likePosts = async (req, res) => {
     try {
-      const {_id}  = req.params;
+      const { _id } = req.params;
       const { userId } = req.body;
       const post = await Posts.findById(_id);
-      if(post) return res.status(403).json('Post id not found')
+      if (post) return res.status(403).json("Post id not found");
       const isLiked = post.likes.get(userId);
 
       if (isLiked) {
