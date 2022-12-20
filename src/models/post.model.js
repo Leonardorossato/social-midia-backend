@@ -5,7 +5,6 @@ const postsSchema = new mongoose.Schema(
   {
     userId: { type: ObjectId, ref: "users", required: true },
     name: { type: String, required: true },
-    lastName: { type: String, required: true },
     location: { type: String, required: false },
     description: { type: String, required: false },
     picturePath: { type: String, required: false },
