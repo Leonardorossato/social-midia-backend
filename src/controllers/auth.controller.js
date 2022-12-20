@@ -2,8 +2,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { validateUser } = require("../middleware/validation.middleware");
 const User = require("../models/users.model");
-require('dotenv').config()
-const PRIVATE_KEY = process.env.PRIVATE_KEY
+require("dotenv").config();
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
 class AuthController {
   static login = async (req, res) => {
     try {
@@ -32,8 +32,7 @@ class AuthController {
 
   static register = async (req, res) => {
     const newUser = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.firstName,
+      name: req.body.name,
       email: req.body.email,
       password: (await bcrypt.hash(req.body.password, 10)).toString(),
       picturePath: req.body.picturePath,
@@ -44,8 +43,8 @@ class AuthController {
       impressions: Math.floor(Math.random() * 1000),
     });
     try {
-      const {error} = validateUser(req.body)
-      if (error) res.status(400).json({message: error.details[0].message})
+      const { error } = validateUser(req.body);
+      if (error) res.status(400).json({ message: error.details[0].message });
       const user = await User.findOne({ email: req.body.email });
       if (user) {
         return res.status(404).json("Email already in use");
